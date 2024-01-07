@@ -7,14 +7,20 @@ const thoughtController = {
   getAllThoughts(req, res) {
     Thought.find({})
       .then(thoughts => res.json(thoughts))
-      .catch(err => res.status(500).json(err));
+      .catch(err => {
+        console.error("Error: ", err);
+        res.status(500).json(err)
+      });
   },
 
   // Get a single thought by ID
   getThoughtById(req, res) {
     Thought.findById(req.params.thoughtId)
       .then(thought => thought ? res.json(thought) : res.status(404).json({ message: 'No thought found with this ID!' }))
-      .catch(err => res.status(500).json(err));
+      .catch(err => {
+        console.error("Error: ", err);
+        res.status(500).json(err)
+      });
   },
 
   // Create a new thought and associate it with a user
